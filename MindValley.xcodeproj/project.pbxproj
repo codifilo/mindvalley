@@ -79,12 +79,9 @@
 		392BB31B246C102100C2F422 /* MindValley */ = {
 			isa = PBXGroup;
 			children = (
-				392BB31C246C102100C2F422 /* AppDelegate.swift */,
-				392BB31E246C102100C2F422 /* SceneDelegate.swift */,
-				392BB320246C102100C2F422 /* ContentView.swift */,
-				392BB322246C102300C2F422 /* Assets.xcassets */,
-				392BB327246C102300C2F422 /* LaunchScreen.storyboard */,
-				392BB32A246C102300C2F422 /* Info.plist */,
+				392BB340246C108300C2F422 /* Resources */,
+				392BB33F246C105700C2F422 /* System */,
+				392BB33E246C104000C2F422 /* UI */,
 				392BB324246C102300C2F422 /* Preview Content */,
 			);
 			path = MindValley;
@@ -105,6 +102,33 @@
 				392BB335246C102300C2F422 /* Info.plist */,
 			);
 			path = MindValleyTests;
+			sourceTree = "<group>";
+		};
+		392BB33E246C104000C2F422 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				392BB320246C102100C2F422 /* ContentView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		392BB33F246C105700C2F422 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				392BB31C246C102100C2F422 /* AppDelegate.swift */,
+				392BB31E246C102100C2F422 /* SceneDelegate.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		392BB340246C108300C2F422 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				392BB322246C102300C2F422 /* Assets.xcassets */,
+				392BB327246C102300C2F422 /* LaunchScreen.storyboard */,
+				392BB32A246C102300C2F422 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,7 +390,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MindValley/Preview Content\"";
 				DEVELOPMENT_TEAM = 5FTZNJDB6J;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MindValley/Info.plist;
+				INFOPLIST_FILE = MindValley/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -386,7 +411,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MindValley/Preview Content\"";
 				DEVELOPMENT_TEAM = 5FTZNJDB6J;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MindValley/Info.plist;
+				INFOPLIST_FILE = MindValley/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
