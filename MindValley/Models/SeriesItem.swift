@@ -10,6 +10,6 @@ import Foundation
 
 struct SeriesItem: Codable, Equatable {
     let title: String
-    let id: Int?
+    let id: String?
     let coverAsset: Asset
 }

@@ -9,5 +9,11 @@
 import Foundation
 
 struct ChannelsData: Codable, Equatable {
-    let data: [Channel]
+    let data: Data
+}
+
+extension ChannelsData {
+    struct Data: Codable, Equatable {
+        let channels: [Channel]
+    }
 }

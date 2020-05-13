@@ -9,5 +9,11 @@
 import Foundation
 
 struct NewEpisodesData: Codable, Equatable {
-    let data: [Media]
+    let data: Data
+}
+
+extension NewEpisodesData {
+    struct Data: Codable, Equatable {
+        let media: [Media]
+    }
 }

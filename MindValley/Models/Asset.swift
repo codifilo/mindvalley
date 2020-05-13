@@ -9,5 +9,6 @@
 import Foundation
 
 struct Asset: Codable, Equatable {
-    let url: String
+    let url: String?
+    let thumbnailUrl: String?
 }

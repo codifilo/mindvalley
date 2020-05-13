@@ -18,6 +18,6 @@ struct Media: Codable, Equatable {
 extension Media {
     enum `Type`: String, Codable, Equatable {
         case course = "course"
-        case video = "Video"
+        case video = "video"
     }
 }

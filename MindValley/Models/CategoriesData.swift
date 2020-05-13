@@ -9,5 +9,11 @@
 import Foundation
 
 struct CategoriesData: Codable, Equatable {
-    let data: [Category]
+    let data: Data
+}
+
+extension CategoriesData {
+    struct Data: Codable, Equatable {
+        let categories: [Category]
+    }
 }

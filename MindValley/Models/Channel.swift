@@ -13,7 +13,7 @@ struct Channel: Codable, Equatable {
     let coverAsset: Asset?
     let iconAsset: Asset?
     let mediaCount: Int?
-    let id: Int?
+    let id: String?
     let series: [SeriesItem]?
     let latestMedia: [Media]?
 }

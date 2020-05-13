@@ -7,9 +7,14 @@
 //
 
 import Foundation
+import Combine
 
-protocol ChannelsInteractor {}
+protocol ChannelsInteractor {
+}
 
-struct RealChannelsInteractor: ChannelsInteractor {}
+struct RealChannelsInteractor: ChannelsInteractor {
+    let webRepository: ChannelsWebRepository
+}
 
-struct StubChannelsInteractor: ChannelsInteractor {}
+struct StubChannelsInteractor: ChannelsInteractor {
+}

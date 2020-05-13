@@ -21,9 +21,11 @@ extension AppEnvironment {
         let appState = Store<AppState>(AppState())
         let interactors = configuredInteractors(appState: appState,
                                                 repositories: repositories)
-        let diContainer = DIContainer(appState: appState,
-        interactors: interactors)
-        let systemEventsHandler = RealSystemEventsHandler(container: diContainer)
+        let diContainer = DIContainer(
+            appState: appState,
+            interactors: interactors)
+        let systemEventsHandler = RealSystemEventsHandler(
+            container: diContainer)
         
         return AppEnvironment(container: diContainer,
                               systemEventsHandler: systemEventsHandler)
@@ -45,7 +47,8 @@ extension AppEnvironment {
         
         return .init(
             newEpisodesInteractor: RealNewEpisodesInteractor(),
-            channelsInteractor: RealChannelsInteractor(),
+            channelsInteractor: RealChannelsInteractor(
+                webRepository: repositories.channels),
             categoriesInteractor: RealCategoriesInteractor())
     }
     
