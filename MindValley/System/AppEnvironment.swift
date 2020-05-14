@@ -45,11 +45,9 @@ extension AppEnvironment {
         appState: Store<AppState>,
         repositories: DIContainer.WebRepositories) -> DIContainer.Interactors {
         
-        return .init(
-            newEpisodesInteractor: RealNewEpisodesInteractor(),
-            channelsInteractor: RealChannelsInteractor(
-                webRepository: repositories.channels),
-            categoriesInteractor: RealCategoriesInteractor())
+        return .init(channelsInteractor: RealChannelsInteractor(
+                appState: appState,
+                webRepository: repositories.channels))
     }
     
     private static func configuredWebRepositories(

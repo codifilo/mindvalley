@@ -17,6 +17,7 @@ struct AppState: Equatable {
 
 extension AppState {
     struct UserData: Equatable {
+        var categoriesData: Loadable<CategoriesData> = .notRequested
     }
 }
 

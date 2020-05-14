@@ -8,22 +8,14 @@
 
 extension DIContainer {
     struct Interactors {
-        let newEpisodesInteractor: NewEpisodesInteractor
-        let channelsInteractor: ChannelsInteractor
-        let categoriesInteractor: CategoriesInteractor
+        let channels: ChannelsInteractor
         
-        init(newEpisodesInteractor: NewEpisodesInteractor,
-             channelsInteractor: ChannelsInteractor,
-             categoriesInteractor: CategoriesInteractor) {
-            self.newEpisodesInteractor = newEpisodesInteractor
-            self.channelsInteractor = channelsInteractor
-            self.categoriesInteractor = categoriesInteractor
+        init(channelsInteractor: ChannelsInteractor) {
+            self.channels = channelsInteractor
         }
         
         static var stub: Self {
-            .init(newEpisodesInteractor: StubNewEpisodesInteractor(),
-                  channelsInteractor: StubChannelsInteractor(),
-                  categoriesInteractor: StubCategoriesInteractor())
+            .init(channelsInteractor: StubChannelsInteractor())
         }
     }
 }
