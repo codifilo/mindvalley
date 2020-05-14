@@ -54,7 +54,7 @@ extension AppEnvironment {
         configuration.timeoutIntervalForResource = 120
         configuration.waitsForConnectivity = true
         configuration.httpMaximumConnectionsPerHost = 5
-        configuration.requestCachePolicy = .returnCacheDataElseLoad
+        configuration.requestCachePolicy = .useProtocolCachePolicy
         return URLSession(configuration: configuration)
     }
     
