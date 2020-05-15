@@ -50,43 +50,43 @@ struct RealChannelsInteractor: ChannelsInteractor {
     
     func loadNewEpisodes() {
         let cancelBag = CancelBag()
-        appState[\.userData.newEpisodesData].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.newEpisodes].setIsLoading(cancelBag: cancelBag)
         webRepository.loadNewEpisodes().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
-                    self.appState[\.userData.newEpisodesData] = .failed(error)
+                    self.appState[\.userData.newEpisodes] = .failed(error)
                 }
         },
             receiveValue: {
-                self.appState[\.userData.newEpisodesData] = .loaded($0)
+                self.appState[\.userData.newEpisodes] = .loaded($0.data.media)
         }).store(in: cancelBag)
     }
     
     func loadChannels() {
         let cancelBag = CancelBag()
-        appState[\.userData.channelsData].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.channels].setIsLoading(cancelBag: cancelBag)
         webRepository.loadChannels().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
-                    self.appState[\.userData.channelsData] = .failed(error)
+                    self.appState[\.userData.channels] = .failed(error)
                 }
         },
             receiveValue: {
-                self.appState[\.userData.channelsData] = .loaded($0)
+                self.appState[\.userData.channels] = .loaded($0.data.channels)
         }).store(in: cancelBag)
     }
     
     func loadCategories() {
         let cancelBag = CancelBag()
-        appState[\.userData.categoriesData].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.categories].setIsLoading(cancelBag: cancelBag)
         webRepository.loadCategories().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
-                    self.appState[\.userData.categoriesData] = .failed(error)
+                    self.appState[\.userData.categories] = .failed(error)
                 }
         },
             receiveValue: {
-                self.appState[\.userData.categoriesData] = .loaded($0)
+                self.appState[\.userData.categories] = .loaded($0.data.categories)
         }).store(in: cancelBag)
     }
 }

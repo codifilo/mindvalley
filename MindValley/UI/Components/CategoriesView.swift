@@ -26,7 +26,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     
-    let data: Loadable<CategoriesData>
+    let data: Loadable<[Category]>
     let refreshHandler: () -> Void
     
     var body: some View {
@@ -56,16 +56,16 @@ struct CategoriesView: View {
         }
     }
     
-    private func isLoadingView(_ last: CategoriesData?) -> some View {
+    private func isLoadingView(_ last: [Category]?) -> some View {
         ZStack {
             last.map { AnyView(self.loadedView($0)) } ?? AnyView(EmptyView())
             ActivityIndicatorView()
         }
     }
     
-    private func loadedView(_ categories: CategoriesData) -> some View {
+    private func loadedView(_ categories: [Category]) -> some View {
         VStack {
-            ForEach(cellsData(from: categories.data.categories)) { cellData in
+            ForEach(cellsData(from: categories)) { cellData in
                 HStack {
                     self.categoryView(for: cellData.first)
                         .padding(.trailing, 5)
@@ -84,7 +84,7 @@ struct CategoriesView: View {
     
     private func categoryView(for category: Category) -> some View {
         Button(
-            action: { Log.d("Did tap category=\(category.name)") },
+            action: { Log.d("didTapCategory=\(category.name)") },
             label: { Text(category.name)
                 .category
                 .multilineTextAlignment(.center)
@@ -132,7 +132,7 @@ extension Category: Identifiable {
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         CategoriesView(
-            data: .loaded(CategoriesData.mockedData),
+            data: .loaded(CategoriesData.mockedData.data.categories),
             refreshHandler: { })
     }
 }

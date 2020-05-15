@@ -26,7 +26,7 @@ import SwiftUI
 
 struct ChannelsView: View {
     
-    let data: Loadable<ChannelsData>
+    let data: Loadable<[Channel]>
     let refreshHandler: () -> Void
     
     var body: some View {
@@ -46,14 +46,14 @@ struct ChannelsView: View {
         }
     }
     
-    private func isLoadingView(_ last: ChannelsData?) -> some View {
+    private func isLoadingView(_ last: [Channel]?) -> some View {
         ZStack {
             last.map { AnyView(self.loadedView($0)) } ?? AnyView(EmptyView())
             ActivityIndicatorView()
         }
     }
     
-    private func loadedView(_ channels: ChannelsData) -> some View {
+    private func loadedView(_ channels: [Channel]) -> some View {
         Text("TODO: Loaded View")
     }
 }
@@ -62,7 +62,7 @@ struct ChannelsView: View {
 struct ChannelsView_Previews: PreviewProvider {
     static var previews: some View {
         ChannelsView(
-            data: .loaded(ChannelsData.mockedData),
+            data: .loaded(ChannelsData.mockedData.data.channels),
             refreshHandler: { })
     }
 }

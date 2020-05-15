@@ -33,9 +33,9 @@ struct AppState: Equatable {
 
 extension AppState {
     struct UserData: Equatable {
-        var newEpisodesData: Loadable<NewEpisodesData> = .notRequested
-        var channelsData: Loadable<ChannelsData> = .notRequested
-        var categoriesData: Loadable<CategoriesData> = .notRequested
+        var newEpisodes: Loadable<[Media]> = .notRequested
+        var channels: Loadable<[Channel]> = .notRequested
+        var categories: Loadable<[Category]> = .notRequested
     }
 }
 

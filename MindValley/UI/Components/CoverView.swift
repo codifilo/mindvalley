@@ -28,15 +28,15 @@ import Kingfisher
 
 struct CoverView: SwiftUI.View {
     let url: URL
-    
-    private let height: CGFloat = 228
-    private let aspectRatio: CGFloat = 0.70175438
-    private var croppedWidth: CGFloat { height * aspectRatio }
+    var width: CGFloat
+    let height: CGFloat
     
     var body: some SwiftUI.View {
         let processor =
-            DownsamplingImageProcessor(size: CGSize(width: height, height: height))
-                |> CroppingImageProcessor(size: CGSize(width: croppedWidth, height: height))
+            DownsamplingImageProcessor(size: CGSize(width: height,
+                                                    height: height))
+                |> CroppingImageProcessor(size: CGSize(width: width,
+                                                       height: height))
         
         return AnyView(KFImage(url,
                        options: [.processor(processor),
@@ -44,13 +44,13 @@ struct CoverView: SwiftUI.View {
                                  .transition(.fade(1)),
             .cacheOriginalImage])
             .placeholder({ ActivityIndicatorView() })
-            .frame(width: croppedWidth, height: height)
+            .frame(width: width, height: height)
             .cornerRadius(10))
     }
 }
 
 struct CoverView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
-        CoverView(url: URL(string: "https://assets.mindvalley.com/api/v1/assets/cb8c79d9-af35-4727-9c4c-6e9eee5af1c3.jpg?transform=w_1080")!)
+        CoverView(url: URL(string: "https://assets.mindvalley.com/api/v1/assets/cb8c79d9-af35-4727-9c4c-6e9eee5af1c3.jpg?transform=w_1080")!, width: 160, height: 228)
     }
 }

@@ -26,8 +26,11 @@ import SwiftUI
 
 struct NewEpisodesView: View {
     
-    let data: Loadable<NewEpisodesData>
+    let data: Loadable<[Media]>
     let refreshHandler: () -> Void
+    
+    private let width: CGFloat = 160
+    private let height: CGFloat = 228
     
     var body: some View {
         VStack {
@@ -55,27 +58,38 @@ struct NewEpisodesView: View {
         }
     }
     
-    private func isLoadingView(_ last: NewEpisodesData?) -> some View {
+    private func isLoadingView(_ last: [Media]?) -> some View {
         ZStack {
             last.map { AnyView(self.loadedView($0)) } ?? AnyView(EmptyView())
             ActivityIndicatorView()
         }
     }
     
-    private func loadedView(_ newEpisodes: NewEpisodesData) -> some View {
-        ScrollView(.horizontal) {
+    private func loadedView(_ mediaList: [Media]) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(0 ..< newEpisodes.data.media.count) { index in
-                    self.mediaView(for: newEpisodes.data.media[index])
+                ForEach(0 ..< mediaList.count) { index in
+                    self.mediaView(for: mediaList[index])
                 }
-            }
+            }.padding(.horizontal, 8)
         }
     }
     
     private func mediaView(for media: Media) -> some View {
-        VStack {
+        VStack(alignment: .leading) {
             coverImage(for: media)
-            Text(media.title).padding()
+            Text(media.title).title.padding(.top, 10)
+            if !(media.channel?.title.isEmpty ?? true) {
+                Text(media.channel!.title.uppercased())
+                    .subtitle
+                    .padding(.vertical, 12)
+            }
+            Spacer()
+        }
+        .frame(width: width)
+        .padding(.horizontal, 5)
+        .onTapGesture {
+            Log.d("didTapMedia=\(media.title)")
         }
     }
     
@@ -84,7 +98,7 @@ struct NewEpisodesView: View {
             let url = URL(string: urlString) else {
             return AnyView(EmptyView())
         }
-        return AnyView(CoverView(url: url))
+        return AnyView(CoverView(url: url, width: width, height: height))
     }
 }
 
@@ -92,7 +106,7 @@ struct NewEpisodesView: View {
 struct NewEpisodesView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
         NewEpisodesView(
-            data: .loaded(NewEpisodesData.mockedData),
+            data: .loaded(NewEpisodesData.mockedData.data.media),
             refreshHandler: { })
     }
 }

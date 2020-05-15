@@ -27,47 +27,47 @@ import Introspect
 
 struct ContentView: View {
     private let container: DIContainer
-    @State private var newEpisodesData: Loadable<NewEpisodesData> = .notRequested
-    @State private var channelsData: Loadable<ChannelsData> = .notRequested
-    @State private var categoriesData: Loadable<CategoriesData> = .notRequested
+    @State private var newEpisodes: Loadable<[Media]> = .notRequested
+    @State private var channels: Loadable<[Channel]> = .notRequested
+    @State private var categories: Loadable<[Category]> = .notRequested
     
     init(container: DIContainer) {
         self.container = container
     }
     
     var body: some View {
-        ScrollView {
-            header
+        ScrollView(showsIndicators: false) {
+            header.padding(.vertical, 30)
             NewEpisodesView(
-                data: newEpisodesData,
+                data: newEpisodes,
                 refreshHandler: {
                     self.container.interactors.channels.loadNewEpisodes()
             })
             DividerView()
             ChannelsView(
-                data: channelsData,
+                data: channels,
                 refreshHandler: {
                     self.container.interactors.channels.loadChannels()
             })
             DividerView()
             CategoriesView(
-                data: categoriesData,
+                data: categories,
                 refreshHandler: {
                     self.container.interactors.channels.loadCategories()
             })
         }
-        .onReceive(container.appState.updates(for: \.userData.newEpisodesData)) {
-            self.newEpisodesData = $0
+        .onReceive(container.appState.updates(for: \.userData.newEpisodes)) {
+            self.newEpisodes = $0
         }
-        .onReceive(container.appState.updates(for: \.userData.channelsData)) {
-            self.channelsData = $0
+        .onReceive(container.appState.updates(for: \.userData.channels)) {
+            self.channels = $0
         }
-        .onReceive(container.appState.updates(for: \.userData.categoriesData)) {
-            self.categoriesData = $0
+        .onReceive(container.appState.updates(for: \.userData.categories)) {
+            self.categories = $0
         }.onAppear() {
-            self.newEpisodesData = self.container.appState[\.userData.newEpisodesData]
-            self.channelsData = self.container.appState[\.userData.channelsData]
-            self.categoriesData = self.container.appState[\.userData.categoriesData]
+            self.newEpisodes = self.container.appState[\.userData.newEpisodes]
+            self.channels = self.container.appState[\.userData.channels]
+            self.categories = self.container.appState[\.userData.categories]
         }.introspectViewController { $0.view.backgroundColor = Color.background.uiColor }
     }
     

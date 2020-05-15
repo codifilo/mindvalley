@@ -39,4 +39,14 @@ extension Text {
         font(.custom("Roboto-Bold", size: 18))
             .foregroundColor(Color.white)
     }
+    
+    var title: Text {
+        font(.custom("Roboto-Bold", size: 17))
+            .foregroundColor(Color.white)
+    }
+    
+    var subtitle: Text {
+        font(.custom("Roboto-Regular", size: 13))
+            .foregroundColor(Color.tertiaryText)
+    }
 }
