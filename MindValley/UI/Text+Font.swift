@@ -54,4 +54,9 @@ extension Text {
         font(.custom("Roboto-Regular", size: 13))
             .foregroundColor(Color.tertiaryText)
     }
+    
+    var channelCount: Text {
+        font(.custom("Roboto-Regular", size: 16))
+            .foregroundColor(Color.tertiaryText)
+    }
 }

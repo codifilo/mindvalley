@@ -25,6 +25,8 @@
 import SwiftUI
 
 struct ChannelsView: View {
+    private let mediaWidth: CGFloat = 160
+    private let mediaHeight: CGFloat = 228
     
     let data: Loadable<[Channel]>
     let refreshHandler: () -> Void
@@ -56,13 +58,42 @@ struct ChannelsView: View {
     private func loadedView(_ channels: [Channel]) -> some View {
         VStack(alignment: .leading) {
             ForEach(0 ..< channels.count) { index in
-                HStack {
-                    IconView(url: channels[index].iconAsset?.combinedUrl,
-                             edge: 50)
-                    Text(channels[index].title).channel
+                self.header(for: channels[index])
+                    .padding(.bottom, 8)
+                    .padding(.top, 16)
+                
+                if !channels[index].isSeries {
+                    MediaListView(mediaList: channels[index].latestMedia ?? [],
+                                  width: self.mediaWidth,
+                                  height: self.mediaHeight)
+                        .frame(height: 300)
+                }
+                
+                if index < channels.count - 1 {
+                    DividerView().padding(.top, 16)
                 }
             }
         }
+    }
+    
+    private func header(for channel: Channel) -> some View {
+        HStack {
+            IconView(url: channel.iconAsset?.combinedUrl,
+                     edge: 50)
+            VStack(alignment: .leading) {
+                Text(channel.title)
+                    .channel
+                    .padding(.bottom, 2)
+                if channel.isSeries {
+                    Text("\(channel.series?.count ?? 0) series")
+                        .channelCount
+                } else {
+                    Text("\(channel.mediaCount ?? 0) episodes")
+                        .channelCount
+                }
+            }.padding(.horizontal, 8)
+            Spacer()
+        }.padding(.horizontal, 8)
     }
 }
 
@@ -70,6 +101,10 @@ private extension Asset {
     var combinedUrl: URL? {
         (thumbnailUrl ?? url).flatMap { URL(string: $0 )}
     }
+}
+
+private extension Channel {
+    var isSeries: Bool { !(self.series?.isEmpty ?? true) }
 }
 
 #if DEBUG
@@ -81,4 +116,3 @@ struct ChannelsView_Previews: PreviewProvider {
     }
 }
 #endif
-

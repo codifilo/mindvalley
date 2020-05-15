@@ -42,7 +42,7 @@ struct ContentView: View {
                 data: newEpisodes,
                 refreshHandler: {
                     self.container.interactors.channels.loadNewEpisodes()
-            })
+            }).frame(height: 400)
             DividerView()
             ChannelsView(
                 data: channels,

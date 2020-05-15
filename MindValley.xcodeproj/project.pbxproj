@@ -70,6 +70,7 @@
 		3941C3D4246EB19700CA66F1 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3941C3D3246EB19700CA66F1 /* KingfisherSwiftUI */; };
 		3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D5246EB8D300CA66F1 /* CoverView.swift */; };
 		3941C3D8246EEC5400CA66F1 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D7246EEC5400CA66F1 /* IconView.swift */; };
+		3941C3DA246EFA8300CA66F1 /* MediaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D9246EFA8300CA66F1 /* MediaListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		3941C3CE246EAB5B00CA66F1 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		3941C3D5246EB8D300CA66F1 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		3941C3D7246EEC5400CA66F1 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		3941C3D9246EFA8300CA66F1 /* MediaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				3941C3C4246EA01F00CA66F1 /* NewEpisodesView.swift */,
+				3941C3D9246EFA8300CA66F1 /* MediaListView.swift */,
 				3941C3CC246EA45800CA66F1 /* ChannelsView.swift */,
 				3941C399246D391D00CA66F1 /* CategoriesView.swift */,
 				3941C39B246D429900CA66F1 /* ActivityIndicatorView.swift */,
@@ -551,6 +554,7 @@
 				392BB362246C177900C2F422 /* NetworkingHelpers.swift in Sources */,
 				392BB35A246C170700C2F422 /* ChannelsWebRepository.swift in Sources */,
 				3941C39C246D429900CA66F1 /* ActivityIndicatorView.swift in Sources */,
+				3941C3DA246EFA8300CA66F1 /* MediaListView.swift in Sources */,
 				3941C39F246D45A000CA66F1 /* Log.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

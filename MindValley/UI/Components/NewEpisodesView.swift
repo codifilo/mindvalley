@@ -66,39 +66,9 @@ struct NewEpisodesView: View {
     }
     
     private func loadedView(_ mediaList: [Media]) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(0 ..< mediaList.count) { index in
-                    self.mediaView(for: mediaList[index])
-                }
-            }.padding(.horizontal, 8)
-        }
-    }
-    
-    private func mediaView(for media: Media) -> some View {
-        VStack(alignment: .leading) {
-            coverImage(for: media)
-            Text(media.title).title.padding(.top, 10)
-            if !(media.channel?.title.isEmpty ?? true) {
-                Text(media.channel!.title.uppercased())
-                    .subtitle
-                    .padding(.vertical, 12)
-            }
-            Spacer()
-        }
-        .frame(width: width)
-        .padding(.horizontal, 5)
-        .onTapGesture {
-            Log.d("didTapMedia=\(media.title)")
-        }
-    }
-    
-    private func coverImage(for media: Media) -> some View {
-        guard let urlString = media.coverAsset.url ?? media.coverAsset.thumbnailUrl,
-            let url = URL(string: urlString) else {
-            return AnyView(EmptyView())
-        }
-        return AnyView(CoverView(url: url, width: width, height: height))
+        MediaListView(mediaList: mediaList,
+                      width: width,
+                      height: height)
     }
 }
 
