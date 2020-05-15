@@ -26,7 +26,10 @@ import Foundation
 import Combine
 
 protocol ChannelsInteractor {
-    func refresh()
+    func loadAll()
+    func loadNewEpisodes()
+    func loadChannels()
+    func loadCategories()
 }
 
 struct RealChannelsInteractor: ChannelsInteractor {
@@ -36,14 +39,44 @@ struct RealChannelsInteractor: ChannelsInteractor {
     init(appState: Store<AppState>, webRepository: ChannelsWebRepository) {
         self.appState = appState
         self.webRepository = webRepository
-        refresh()
+        loadAll()
     }
     
-    func refresh() {
+    func loadAll() {
+        loadNewEpisodes()
+        loadChannels()
         loadCategories()
     }
     
-    private func loadCategories() {
+    func loadNewEpisodes() {
+        let cancelBag = CancelBag()
+        appState[\.userData.newEpisodesData].setIsLoading(cancelBag: cancelBag)
+        webRepository.loadNewEpisodes().sink(
+            receiveCompletion: {
+                if case .failure(let error) = $0 {
+                    self.appState[\.userData.newEpisodesData] = .failed(error)
+                }
+        },
+            receiveValue: {
+                self.appState[\.userData.newEpisodesData] = .loaded($0)
+        }).store(in: cancelBag)
+    }
+    
+    func loadChannels() {
+        let cancelBag = CancelBag()
+        appState[\.userData.channelsData].setIsLoading(cancelBag: cancelBag)
+        webRepository.loadChannels().sink(
+            receiveCompletion: {
+                if case .failure(let error) = $0 {
+                    self.appState[\.userData.channelsData] = .failed(error)
+                }
+        },
+            receiveValue: {
+                self.appState[\.userData.channelsData] = .loaded($0)
+        }).store(in: cancelBag)
+    }
+    
+    func loadCategories() {
         let cancelBag = CancelBag()
         appState[\.userData.categoriesData].setIsLoading(cancelBag: cancelBag)
         webRepository.loadCategories().sink(
@@ -59,5 +92,8 @@ struct RealChannelsInteractor: ChannelsInteractor {
 }
 
 struct StubChannelsInteractor: ChannelsInteractor {
-    func refresh() {}
+    func loadAll() {}
+    func loadNewEpisodes() {}
+    func loadChannels() {}
+    func loadCategories() {}
 }

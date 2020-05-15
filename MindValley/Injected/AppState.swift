@@ -33,6 +33,8 @@ struct AppState: Equatable {
 
 extension AppState {
     struct UserData: Equatable {
+        var newEpisodesData: Loadable<NewEpisodesData> = .notRequested
+        var channelsData: Loadable<ChannelsData> = .notRequested
         var categoriesData: Loadable<CategoriesData> = .notRequested
     }
 }

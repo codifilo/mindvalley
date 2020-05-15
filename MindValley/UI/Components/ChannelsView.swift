@@ -1,5 +1,5 @@
 //
-//  Font+Theme.swift
+//  ChannelsView.swift
 //  MindValley
 //
 //  Copyright © 2020 Agustín Prats.
@@ -24,19 +24,47 @@
 
 import SwiftUI
 
-extension Text {
-    var header: Text {
-        font(.custom("Roboto-Bold", size: 30))
-            .foregroundColor(Color.secondaryText)
+struct ChannelsView: View {
+    
+    let data: Loadable<ChannelsData>
+    let refreshHandler: () -> Void
+    
+    var body: some View {
+        channels
     }
     
-    var headline: Text {
-        font(.custom("Roboto-Bold", size: 20))
-            .foregroundColor(Color.tertiaryText)
+    private var channels: some View {
+        switch data {
+        case .notRequested:
+            return AnyView(Text(""))
+        case .isLoading(last: let last, cancelBag: _):
+            return AnyView(isLoadingView(last))
+        case .loaded(let categories):
+            return AnyView(loadedView(categories))
+        case .failed(_):
+            return AnyView(ErrorView() { self.refreshHandler() })
+        }
     }
     
-    var category: Text {
-        font(.custom("Roboto-Bold", size: 18))
-            .foregroundColor(Color.white)
+    private func isLoadingView(_ last: ChannelsData?) -> some View {
+        ZStack {
+            last.map { AnyView(self.loadedView($0)) } ?? AnyView(EmptyView())
+            ActivityIndicatorView()
+        }
+    }
+    
+    private func loadedView(_ channels: ChannelsData) -> some View {
+        Text("TODO: Loaded View")
     }
 }
+
+#if DEBUG
+struct ChannelsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChannelsView(
+            data: .loaded(ChannelsData.mockedData),
+            refreshHandler: { })
+    }
+}
+#endif
+

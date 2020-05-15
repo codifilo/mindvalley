@@ -26,7 +26,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     
-    let categoriesData: Loadable<CategoriesData>
+    let data: Loadable<CategoriesData>
     let refreshHandler: () -> Void
     
     var body: some View {
@@ -34,29 +34,26 @@ struct CategoriesView: View {
             HStack {
                 Text("Browse by categories".localized)
                     .headline
-                    .padding(.horizontal)
+                    .padding()
                 Spacer()
             }
             categories
+                .padding(.horizontal)
             Spacer()
         }
     }
     
     private var categories: some View {
-        switch categoriesData {
+        switch data {
         case .notRequested:
-            return AnyView(notRequestedView)
+            return AnyView(Text(""))
         case .isLoading(last: let last, cancelBag: _):
             return AnyView(isLoadingView(last))
         case .loaded(let categories):
             return AnyView(loadedView(categories))
-        case .failed(let error):
-            return AnyView(failedView(error))
+        case .failed(_):
+            return AnyView(ErrorView() { self.refreshHandler() })
         }
-    }
-    
-    private var notRequestedView: some View {
-        EmptyView()
     }
     
     private func isLoadingView(_ last: CategoriesData?) -> some View {
@@ -67,16 +64,17 @@ struct CategoriesView: View {
     }
     
     private func loadedView(_ categories: CategoriesData) -> some View {
-        List(cellsData(from: categories.data.categories)) { cellData in
-            HStack {
-                self.categoryView(for: cellData.first)
-                    .padding(.trailing, 5)
-                cellData.second.map {
-                    self.categoryView(for: $0)
-                        .padding(.leading, 5) }
+        VStack {
+            ForEach(cellsData(from: categories.data.categories)) { cellData in
+                HStack {
+                    self.categoryView(for: cellData.first)
+                        .padding(.trailing, 5)
+                    cellData.second.map {
+                        self.categoryView(for: $0)
+                            .padding(.leading, 5) }
+                }.padding(.vertical, 8)
             }
-        }
-        .onAppear() {
+        }.onAppear() {
             UITableView.appearance().backgroundColor = .clear
             UITableView.appearance().separatorStyle = .none
             UITableViewCell.appearance().backgroundColor = .clear
@@ -96,11 +94,6 @@ struct CategoriesView: View {
                 .padding(.horizontal)
                 .background(Color.lightBackground)
                 .cornerRadius(35) })
-    }
-    
-    private func failedView(_ error: Error) -> some View {
-        Text("Something went wrong. Tap this to refresh.".localized)
-            .onTapGesture { self.refreshHandler() }
     }
 }
 
@@ -139,7 +132,7 @@ extension Category: Identifiable {
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
         CategoriesView(
-            categoriesData: .loaded(CategoriesData.mockedData),
+            data: .loaded(CategoriesData.mockedData),
             refreshHandler: { })
     }
 }

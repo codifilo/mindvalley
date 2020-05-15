@@ -1,5 +1,5 @@
 //
-//  Font+Theme.swift
+//  ErrorView.swift
 //  MindValley
 //
 //  Copyright © 2020 Agustín Prats.
@@ -24,19 +24,17 @@
 
 import SwiftUI
 
-extension Text {
-    var header: Text {
-        font(.custom("Roboto-Bold", size: 30))
-            .foregroundColor(Color.secondaryText)
-    }
+struct ErrorView: View {
+    let refreshHandler: () -> Void
     
-    var headline: Text {
-        font(.custom("Roboto-Bold", size: 20))
-            .foregroundColor(Color.tertiaryText)
+    var body: some View {
+        Text("Something went wrong. Tap this to refresh.".localized)
+            .onTapGesture { self.refreshHandler() }
     }
-    
-    var category: Text {
-        font(.custom("Roboto-Bold", size: 18))
-            .foregroundColor(Color.white)
+}
+
+struct ErrorView_Previews: PreviewProvider {
+    static var previews: some View {
+        ErrorView(refreshHandler: {})
     }
 }

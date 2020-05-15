@@ -1,5 +1,5 @@
 //
-//  Font+Theme.swift
+//  DividerView.swift
 //  MindValley
 //
 //  Copyright © 2020 Agustín Prats.
@@ -24,19 +24,16 @@
 
 import SwiftUI
 
-extension Text {
-    var header: Text {
-        font(.custom("Roboto-Bold", size: 30))
-            .foregroundColor(Color.secondaryText)
+struct DividerView: View {
+    var body: some View {
+        Color.divider
+            .frame(height: 1)
+            .padding(.horizontal, 5)
     }
-    
-    var headline: Text {
-        font(.custom("Roboto-Bold", size: 20))
-            .foregroundColor(Color.tertiaryText)
-    }
-    
-    var category: Text {
-        font(.custom("Roboto-Bold", size: 18))
-            .foregroundColor(Color.white)
+}
+
+struct DividerView_Previews: PreviewProvider {
+    static var previews: some View {
+        DividerView()
     }
 }

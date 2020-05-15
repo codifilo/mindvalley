@@ -33,6 +33,7 @@ extension Color {
     static var primaryText: Color { Color(hex: "FFFFFF") }
     static var secondaryText: Color { Color(hex: "C1C1C1") }
     static var tertiaryText: Color { Color(hex: "95989D") }
+    static var divider: Color { Color(hex: "3C434E") }
     
 }
 extension Color {

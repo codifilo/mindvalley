@@ -27,6 +27,8 @@ import Introspect
 
 struct ContentView: View {
     private let container: DIContainer
+    @State private var newEpisodesData: Loadable<NewEpisodesData> = .notRequested
+    @State private var channelsData: Loadable<ChannelsData> = .notRequested
     @State private var categoriesData: Loadable<CategoriesData> = .notRequested
     
     init(container: DIContainer) {
@@ -34,14 +36,48 @@ struct ContentView: View {
     }
     
     var body: some View {
-        CategoriesView(
-            categoriesData: categoriesData,
-            refreshHandler: { self.container.interactors.channels.refresh() })
+        ScrollView {
+            header
+            NewEpisodesView(
+                data: newEpisodesData,
+                refreshHandler: {
+                    self.container.interactors.channels.loadNewEpisodes()
+            })
+            DividerView()
+            ChannelsView(
+                data: channelsData,
+                refreshHandler: {
+                    self.container.interactors.channels.loadChannels()
+            })
+            DividerView()
+            CategoriesView(
+                data: categoriesData,
+                refreshHandler: {
+                    self.container.interactors.channels.loadCategories()
+            })
+        }
+        .onReceive(container.appState.updates(for: \.userData.newEpisodesData)) {
+            self.newEpisodesData = $0
+        }
+        .onReceive(container.appState.updates(for: \.userData.channelsData)) {
+            self.channelsData = $0
+        }
         .onReceive(container.appState.updates(for: \.userData.categoriesData)) {
             self.categoriesData = $0
         }.onAppear() {
+            self.newEpisodesData = self.container.appState[\.userData.newEpisodesData]
+            self.channelsData = self.container.appState[\.userData.channelsData]
             self.categoriesData = self.container.appState[\.userData.categoriesData]
         }.introspectViewController { $0.view.backgroundColor = Color.background.uiColor }
+    }
+    
+    private var header: some View {
+        HStack {
+            Text("Channels".localized)
+                .header
+                .padding()
+            Spacer()
+        }
     }
 }
 
