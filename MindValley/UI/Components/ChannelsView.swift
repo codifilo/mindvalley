@@ -66,7 +66,6 @@ struct ChannelsView: View {
                     MediaListView(mediaList: channels[index].latestMedia ?? [],
                                   width: self.mediaWidth,
                                   height: self.mediaHeight)
-                        .frame(height: 325)
                 }
                 
                 if index < channels.count - 1 {

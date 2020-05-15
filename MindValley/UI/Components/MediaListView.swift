@@ -49,6 +49,7 @@ struct MediaListView: View {
             
             Text(media.title)
                 .title
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 10)
                 
             if !(media.channel?.title.isEmpty ?? true) {
