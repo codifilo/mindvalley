@@ -71,6 +71,7 @@
 		3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D5246EB8D300CA66F1 /* CoverView.swift */; };
 		3941C3D8246EEC5400CA66F1 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D7246EEC5400CA66F1 /* IconView.swift */; };
 		3941C3DA246EFA8300CA66F1 /* MediaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D9246EFA8300CA66F1 /* MediaListView.swift */; };
+		3941C3DC246F1A8500CA66F1 /* SeriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3DB246F1A8500CA66F1 /* SeriesListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		3941C3D5246EB8D300CA66F1 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		3941C3D7246EEC5400CA66F1 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		3941C3D9246EFA8300CA66F1 /* MediaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListView.swift; sourceTree = "<group>"; };
+		3941C3DB246F1A8500CA66F1 /* SeriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +351,7 @@
 			children = (
 				3941C3C4246EA01F00CA66F1 /* NewEpisodesView.swift */,
 				3941C3D9246EFA8300CA66F1 /* MediaListView.swift */,
+				3941C3DB246F1A8500CA66F1 /* SeriesListView.swift */,
 				3941C3CC246EA45800CA66F1 /* ChannelsView.swift */,
 				3941C399246D391D00CA66F1 /* CategoriesView.swift */,
 				3941C39B246D429900CA66F1 /* ActivityIndicatorView.swift */,
@@ -542,6 +545,7 @@
 				3941C3CB246EA25200CA66F1 /* ErrorView.swift in Sources */,
 				3941C3CD246EA45800CA66F1 /* ChannelsView.swift in Sources */,
 				3941C3A3246D46DF00CA66F1 /* Color+Theme.swift in Sources */,
+				3941C3DC246F1A8500CA66F1 /* SeriesListView.swift in Sources */,
 				392BB321246C102100C2F422 /* ContentView.swift in Sources */,
 				392BB360246C176A00C2F422 /* WebRepository.swift in Sources */,
 				392BB366246C178900C2F422 /* APICall.swift in Sources */,

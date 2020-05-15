@@ -32,8 +32,10 @@ struct DividerView: View {
     }
 }
 
+#if DEBUG
 struct DividerView_Previews: PreviewProvider {
     static var previews: some View {
         DividerView()
     }
 }
+#endif

@@ -33,8 +33,10 @@ struct ErrorView: View {
     }
 }
 
+#if DEBUG
 struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
         ErrorView(refreshHandler: {})
     }
 }
+#endif

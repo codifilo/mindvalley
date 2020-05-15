@@ -35,8 +35,10 @@ struct IconView: SwiftUI.View {
     }
 }
 
+#if DEBUG
 struct IconView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
         IconView(url: URL(string: "https://edgecastcdn.net/80EC13/public/overmind2/asset/11914f01-ba4a-4d68-9c33-efb34c43ed23/channel-icon-mentoring_thumbnail.png")!, edge: 50)
     }
 }
+#endif

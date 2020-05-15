@@ -33,18 +33,19 @@ struct CoverView: SwiftUI.View {
     
     var body: some SwiftUI.View {
         let processor =
-            DownsamplingImageProcessor(size: CGSize(width: height,
-                                                    height: height))
+            ResizingImageProcessor(referenceSize: CGSize(width: max(width, height),
+                                                         height: max(width, height)),
+                                   mode: .aspectFill)
                 |> CroppingImageProcessor(size: CGSize(width: width,
                                                        height: height))
-        
+
         let placeHolder = AnyView(Color.lightBackground)
         
         let main = url.map({ AnyView(KFImage($0,
                        options: [.processor(processor),
                                  .scaleFactor(UIScreen.main.scale),
                                  .transition(.fade(1)),
-            .cacheOriginalImage])
+                                 .cacheOriginalImage])
             .placeholder({ placeHolder })) }) ?? placeHolder
         
         
@@ -54,8 +55,10 @@ struct CoverView: SwiftUI.View {
     }
 }
 
+#if DEBUG
 struct CoverView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
         CoverView(url: URL(string: "https://assets.mindvalley.com/api/v1/assets/cb8c79d9-af35-4727-9c4c-6e9eee5af1c3.jpg?transform=w_1080")!, width: 160, height: 228)
     }
 }
+#endif

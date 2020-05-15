@@ -25,8 +25,11 @@
 import SwiftUI
 
 struct ChannelsView: View {
-    private let mediaWidth: CGFloat = 160
+    private let mediaWidth: CGFloat = 152
     private let mediaHeight: CGFloat = 228
+    
+    private let seriesWidth: CGFloat = 320
+    private let seriesHeight: CGFloat = 172
     
     let data: Loadable<[Channel]>
     let refreshHandler: () -> Void
@@ -62,7 +65,11 @@ struct ChannelsView: View {
                     .padding(.bottom, 8)
                     .padding(.top, 16)
                 
-                if !channels[index].isSeries {
+                if channels[index].isSeries {
+                    SeriesListView(seriesList: channels[index].series ?? [],
+                                   width: self.seriesWidth,
+                                   height: self.seriesHeight)
+                } else {
                     MediaListView(mediaList: channels[index].latestMedia ?? [],
                                   width: self.mediaWidth,
                                   height: self.mediaHeight)

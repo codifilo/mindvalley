@@ -1,5 +1,5 @@
 //
-//  MediaListView.swift
+//  SeriesListView.swift
 //  MindValley
 //
 //  Copyright © 2020 Agustín Prats.
@@ -24,8 +24,8 @@
 
 import SwiftUI
 
-struct MediaListView: View {
-    let mediaList: [Media]
+struct SeriesListView: View {
+    let seriesList: [SeriesItem]
     let width: CGFloat
     let height: CGFloat
     
@@ -34,46 +34,40 @@ struct MediaListView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(0 ..< min(maxCount, mediaList.count)) { index in
-                    self.mediaView(for: self.mediaList[index])
+                ForEach(0 ..< min(maxCount, seriesList.count)) { index in
+                    self.itemView(for: self.seriesList[index])
                 }
             }.padding(.horizontal, 8)
         }
     }
     
-    private func mediaView(for media: Media) -> some View {
+    private func itemView(for item: SeriesItem) -> some View {
         VStack(alignment: .leading) {
-            CoverView(url: media.coverAsset.combinedUrl,
+            CoverView(url: item.coverAsset.combinedUrl,
                       width: width,
                       height: height)
             
-            Text(media.title)
+            Text(item.title)
                 .title
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 10)
-                
-            if !(media.channel?.title.isEmpty ?? true) {
-                Text(media.channel!.title.uppercased())
-                    .subtitle
-                    .padding(.vertical, 12)
-            }
+                .padding(.vertical, 10)
             
             Spacer()
         }
         .frame(width: width)
         .padding(.horizontal, 5)
         .onTapGesture {
-            Log.d("didTapMedia=\(media.title)")
+            Log.d("didTapSeriesItem=\(item.title)")
         }
     }
 }
 
 #if DEBUG
-struct MediaListView_Previews: PreviewProvider {
+struct SeriesListView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaListView(mediaList: NewEpisodesData.mockedData.data.media,
-                      width: 160,
-                      height: 228)
+        SeriesListView(seriesList: ChannelsData.mockedData.data.channels[0].series ?? [],
+                       width: 160,
+                       height: 228)
     }
 }
 #endif
