@@ -63,13 +63,34 @@ struct NewEpisodesView: View {
     }
     
     private func loadedView(_ newEpisodes: NewEpisodesData) -> some View {
-        Text("TODO: Loaded View")
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(0 ..< newEpisodes.data.media.count) { index in
+                    self.mediaView(for: newEpisodes.data.media[index])
+                }
+            }
+        }
+    }
+    
+    private func mediaView(for media: Media) -> some View {
+        VStack {
+            coverImage(for: media)
+            Text(media.title).padding()
+        }
+    }
+    
+    private func coverImage(for media: Media) -> some View {
+        guard let urlString = media.coverAsset.url ?? media.coverAsset.thumbnailUrl,
+            let url = URL(string: urlString) else {
+            return AnyView(EmptyView())
+        }
+        return AnyView(CoverView(url: url))
     }
 }
 
 #if DEBUG
 struct NewEpisodesView_Previews: PreviewProvider {
-    static var previews: some View {
+    static var previews: some SwiftUI.View {
         NewEpisodesView(
             data: .loaded(NewEpisodesData.mockedData),
             refreshHandler: { })

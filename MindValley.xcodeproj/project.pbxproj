@@ -66,6 +66,9 @@
 		3941C3CB246EA25200CA66F1 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3CA246EA25200CA66F1 /* ErrorView.swift */; };
 		3941C3CD246EA45800CA66F1 /* ChannelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3CC246EA45800CA66F1 /* ChannelsView.swift */; };
 		3941C3CF246EAB5B00CA66F1 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3CE246EAB5B00CA66F1 /* DividerView.swift */; };
+		3941C3D2246EB19700CA66F1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3941C3D1246EB19700CA66F1 /* Kingfisher */; };
+		3941C3D4246EB19700CA66F1 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3941C3D3246EB19700CA66F1 /* KingfisherSwiftUI */; };
+		3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D5246EB8D300CA66F1 /* CoverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +144,7 @@
 		3941C3CA246EA25200CA66F1 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3941C3CC246EA45800CA66F1 /* ChannelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsView.swift; sourceTree = "<group>"; };
 		3941C3CE246EAB5B00CA66F1 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
+		3941C3D5246EB8D300CA66F1 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3941C3D4246EB19700CA66F1 /* KingfisherSwiftUI in Frameworks */,
+				3941C3D2246EB19700CA66F1 /* Kingfisher in Frameworks */,
 				3941C3A6246D4AA900CA66F1 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +349,7 @@
 				3941C39B246D429900CA66F1 /* ActivityIndicatorView.swift */,
 				3941C3CA246EA25200CA66F1 /* ErrorView.swift */,
 				3941C3CE246EAB5B00CA66F1 /* DividerView.swift */,
+				3941C3D5246EB8D300CA66F1 /* CoverView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -400,6 +407,8 @@
 			name = MindValley;
 			packageProductDependencies = (
 				3941C3A5246D4AA900CA66F1 /* Introspect */,
+				3941C3D1246EB19700CA66F1 /* Kingfisher */,
+				3941C3D3246EB19700CA66F1 /* KingfisherSwiftUI */,
 			);
 			productName = MindValley;
 			productReference = 392BB319246C102100C2F422 /* MindValley.app */;
@@ -453,6 +462,7 @@
 			mainGroup = 392BB310246C102100C2F422;
 			packageReferences = (
 				3941C3A4246D4AA900CA66F1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				3941C3D0246EB19700CA66F1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 392BB31A246C102100C2F422 /* Products */;
 			projectDirPath = "";
@@ -531,6 +541,7 @@
 				392BB366246C178900C2F422 /* APICall.swift in Sources */,
 				392BB364246C178400C2F422 /* Helpers.swift in Sources */,
 				392BB347246C130800C2F422 /* AppState.swift in Sources */,
+				3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */,
 				392BB36E246C484F00C2F422 /* Channel.swift in Sources */,
 				392BB355246C150200C2F422 /* SystemEventsHandler.swift in Sources */,
 				392BB362246C177900C2F422 /* NetworkingHelpers.swift in Sources */,
@@ -817,6 +828,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		3941C3D0246EB19700CA66F1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.14.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -824,6 +843,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3941C3A4246D4AA900CA66F1 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		3941C3D1246EB19700CA66F1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3941C3D0246EB19700CA66F1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		3941C3D3246EB19700CA66F1 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3941C3D0246EB19700CA66F1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
