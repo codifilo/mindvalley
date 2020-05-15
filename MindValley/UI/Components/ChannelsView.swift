@@ -54,7 +54,21 @@ struct ChannelsView: View {
     }
     
     private func loadedView(_ channels: [Channel]) -> some View {
-        Text("TODO: Loaded View")
+        VStack(alignment: .leading) {
+            ForEach(0 ..< channels.count) { index in
+                HStack {
+                    IconView(url: channels[index].iconAsset?.combinedUrl,
+                             edge: 50)
+                    Text(channels[index].title).channel
+                }
+            }
+        }
+    }
+}
+
+private extension Asset {
+    var combinedUrl: URL? {
+        (thumbnailUrl ?? url).flatMap { URL(string: $0 )}
     }
 }
 

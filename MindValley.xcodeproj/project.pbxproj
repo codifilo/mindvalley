@@ -69,6 +69,7 @@
 		3941C3D2246EB19700CA66F1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3941C3D1246EB19700CA66F1 /* Kingfisher */; };
 		3941C3D4246EB19700CA66F1 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3941C3D3246EB19700CA66F1 /* KingfisherSwiftUI */; };
 		3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D5246EB8D300CA66F1 /* CoverView.swift */; };
+		3941C3D8246EEC5400CA66F1 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D7246EEC5400CA66F1 /* IconView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		3941C3CC246EA45800CA66F1 /* ChannelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsView.swift; sourceTree = "<group>"; };
 		3941C3CE246EAB5B00CA66F1 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		3941C3D5246EB8D300CA66F1 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
+		3941C3D7246EEC5400CA66F1 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +352,7 @@
 				3941C3CA246EA25200CA66F1 /* ErrorView.swift */,
 				3941C3CE246EAB5B00CA66F1 /* DividerView.swift */,
 				3941C3D5246EB8D300CA66F1 /* CoverView.swift */,
+				3941C3D7246EEC5400CA66F1 /* IconView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				392BB364246C178400C2F422 /* Helpers.swift in Sources */,
 				392BB347246C130800C2F422 /* AppState.swift in Sources */,
 				3941C3D6246EB8D300CA66F1 /* CoverView.swift in Sources */,
+				3941C3D8246EEC5400CA66F1 /* IconView.swift in Sources */,
 				392BB36E246C484F00C2F422 /* Channel.swift in Sources */,
 				392BB355246C150200C2F422 /* SystemEventsHandler.swift in Sources */,
 				392BB362246C177900C2F422 /* NetworkingHelpers.swift in Sources */,

@@ -39,7 +39,7 @@ struct NewEpisodesView: View {
                     .headline
                     .padding(.horizontal)
                 Spacer()
-            }
+            }.padding(.bottom, 8)
             newEpisodes
             Spacer()
         }

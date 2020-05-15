@@ -40,6 +40,11 @@ extension Text {
             .foregroundColor(Color.white)
     }
     
+    var channel: Text {
+        font(.custom("Roboto-Bold", size: 20))
+            .foregroundColor(Color.white)
+    }
+    
     var title: Text {
         font(.custom("Roboto-Bold", size: 17))
             .foregroundColor(Color.white)
