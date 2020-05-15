@@ -27,4 +27,8 @@ import Foundation
 struct Asset: Codable, Equatable {
     let url: String?
     let thumbnailUrl: String?
+    
+    var combinedUrl: URL? {
+        (thumbnailUrl ?? url).flatMap { URL(string: $0 )}
+    }
 }

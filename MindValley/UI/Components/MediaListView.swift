@@ -43,7 +43,9 @@ struct MediaListView: View {
     
     private func mediaView(for media: Media) -> some View {
         VStack(alignment: .leading) {
-            coverImage(for: media)
+            CoverView(url: media.coverAsset.combinedUrl,
+                      width: width,
+                      height: height)
             
             Text(media.title)
                 .title
@@ -62,14 +64,6 @@ struct MediaListView: View {
         .onTapGesture {
             Log.d("didTapMedia=\(media.title)")
         }
-    }
-    
-    private func coverImage(for media: Media) -> some View {
-        guard let urlString = media.coverAsset.url ?? media.coverAsset.thumbnailUrl,
-            let url = URL(string: urlString) else {
-            return AnyView(EmptyView())
-        }
-        return AnyView(CoverView(url: url, width: width, height: height))
     }
 }
 

@@ -66,7 +66,7 @@ struct ChannelsView: View {
                     MediaListView(mediaList: channels[index].latestMedia ?? [],
                                   width: self.mediaWidth,
                                   height: self.mediaHeight)
-                        .frame(height: 300)
+                        .frame(height: 325)
                 }
                 
                 if index < channels.count - 1 {
@@ -94,12 +94,6 @@ struct ChannelsView: View {
             }.padding(.horizontal, 8)
             Spacer()
         }.padding(.horizontal, 8)
-    }
-}
-
-private extension Asset {
-    var combinedUrl: URL? {
-        (thumbnailUrl ?? url).flatMap { URL(string: $0 )}
     }
 }
 

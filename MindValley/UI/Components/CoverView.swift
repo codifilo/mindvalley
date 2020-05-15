@@ -27,7 +27,7 @@ import KingfisherSwiftUI
 import Kingfisher
 
 struct CoverView: SwiftUI.View {
-    let url: URL
+    let url: URL?
     var width: CGFloat
     let height: CGFloat
     
@@ -38,12 +38,17 @@ struct CoverView: SwiftUI.View {
                 |> CroppingImageProcessor(size: CGSize(width: width,
                                                        height: height))
         
-        return AnyView(KFImage(url,
+        let placeHolder = AnyView(Color.lightBackground)
+        
+        let main = url.map({ AnyView(KFImage($0,
                        options: [.processor(processor),
                                  .scaleFactor(UIScreen.main.scale),
                                  .transition(.fade(1)),
             .cacheOriginalImage])
-            .placeholder({ ActivityIndicatorView() })
+            .placeholder({ placeHolder })) }) ?? placeHolder
+        
+        
+        return AnyView(main
             .frame(width: width, height: height)
             .cornerRadius(10))
     }
