@@ -72,6 +72,9 @@
 		3941C3D8246EEC5400CA66F1 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D7246EEC5400CA66F1 /* IconView.swift */; };
 		3941C3DA246EFA8300CA66F1 /* MediaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3D9246EFA8300CA66F1 /* MediaListView.swift */; };
 		3941C3DC246F1A8500CA66F1 /* SeriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3DB246F1A8500CA66F1 /* SeriesListView.swift */; };
+		3941C3DE246FE1B300CA66F1 /* String+SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3DD246FE1B300CA66F1 /* String+SHA256.swift */; };
+		3941C3E1246FE8BF00CA66F1 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3E0246FE8BF00CA66F1 /* FileCache.swift */; };
+		3941C3E6246FFC3300CA66F1 /* AnyPublisher+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3941C3E5246FFC3300CA66F1 /* AnyPublisher+Error.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +154,10 @@
 		3941C3D7246EEC5400CA66F1 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		3941C3D9246EFA8300CA66F1 /* MediaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListView.swift; sourceTree = "<group>"; };
 		3941C3DB246F1A8500CA66F1 /* SeriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesListView.swift; sourceTree = "<group>"; };
+		3941C3DD246FE1B300CA66F1 /* String+SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA256.swift"; sourceTree = "<group>"; };
+		3941C3DF246FE20C00CA66F1 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		3941C3E0246FE8BF00CA66F1 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		3941C3E5246FFC3300CA66F1 /* AnyPublisher+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Error.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +253,7 @@
 				392BB357246C16A400C2F422 /* AppEnvironment.swift */,
 				392BB31E246C102100C2F422 /* SceneDelegate.swift */,
 				392BB354246C150200C2F422 /* SystemEventsHandler.swift */,
+				3941C3DF246FE20C00CA66F1 /* BridgingHeader.h */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -273,6 +281,9 @@
 				392BB363246C178400C2F422 /* Helpers.swift */,
 				392BB365246C178900C2F422 /* APICall.swift */,
 				392BB35F246C176A00C2F422 /* WebRepository.swift */,
+				3941C3DD246FE1B300CA66F1 /* String+SHA256.swift */,
+				3941C3E0246FE8BF00CA66F1 /* FileCache.swift */,
+				3941C3E5246FFC3300CA66F1 /* AnyPublisher+Error.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -536,6 +547,7 @@
 				392BB353246C14C400C2F422 /* Store.swift in Sources */,
 				392BB38B246C575000C2F422 /* MockedData.swift in Sources */,
 				392BB370246C489000C2F422 /* Asset.swift in Sources */,
+				3941C3E1246FE8BF00CA66F1 /* FileCache.swift in Sources */,
 				392BB376246C501800C2F422 /* NewEpisodesData.swift in Sources */,
 				392BB378246C504100C2F422 /* ChannelsData.swift in Sources */,
 				3941C39A246D391D00CA66F1 /* CategoriesView.swift in Sources */,
@@ -545,6 +557,7 @@
 				3941C3CB246EA25200CA66F1 /* ErrorView.swift in Sources */,
 				3941C3CD246EA45800CA66F1 /* ChannelsView.swift in Sources */,
 				3941C3A3246D46DF00CA66F1 /* Color+Theme.swift in Sources */,
+				3941C3E6246FFC3300CA66F1 /* AnyPublisher+Error.swift in Sources */,
 				3941C3DC246F1A8500CA66F1 /* SeriesListView.swift in Sources */,
 				392BB321246C102100C2F422 /* ContentView.swift in Sources */,
 				392BB360246C176A00C2F422 /* WebRepository.swift in Sources */,
@@ -559,6 +572,7 @@
 				392BB35A246C170700C2F422 /* ChannelsWebRepository.swift in Sources */,
 				3941C39C246D429900CA66F1 /* ActivityIndicatorView.swift in Sources */,
 				3941C3DA246EFA8300CA66F1 /* MediaListView.swift in Sources */,
+				3941C3DE246FE1B300CA66F1 /* String+SHA256.swift in Sources */,
 				3941C39F246D45A000CA66F1 /* Log.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,6 +743,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.MindValley;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/System/BridgingHeader.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -750,6 +765,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.MindValley;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)/System/BridgingHeader.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

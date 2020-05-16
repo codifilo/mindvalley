@@ -26,31 +26,32 @@ import Foundation
 import Combine
 
 protocol ChannelsWebRepository: WebRepository {
-    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData, Error>
-    func loadChannels() -> AnyPublisher<ChannelsData, Error>
-    func loadCategories() -> AnyPublisher<CategoriesData, Error>
+    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData?, Error>
+    func loadChannels() -> AnyPublisher<ChannelsData?, Error>
+    func loadCategories() -> AnyPublisher<CategoriesData?, Error>
 }
 
 struct RealChannelsWebRepository: ChannelsWebRepository {
     let session: URLSession
     let baseURL: String
     let bgQueue = DispatchQueue(label: "bg_episodes_parse_queue")
+    let fileCache = FileCache(cacheName: "RealChannelsWebRepositoryCache")
     
     init(session: URLSession, baseURL: String) {
         self.session = session
         self.baseURL = baseURL
     }
     
-    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData, Error>  {
-        call(endpoint: API.newEpisodes)
+    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData?, Error> {
+        cachedCall(endpoint: API.newEpisodes)
     }
     
-    func loadChannels() -> AnyPublisher<ChannelsData, Error> {
-        call(endpoint: API.channels)
+    func loadChannels() -> AnyPublisher<ChannelsData?, Error> {
+        cachedCall(endpoint: API.channels)
     }
     
-    func loadCategories() -> AnyPublisher<CategoriesData, Error> {
-        call(endpoint: API.categories)
+    func loadCategories() -> AnyPublisher<CategoriesData?, Error> {
+        cachedCall(endpoint: API.categories)
     }
 }
 

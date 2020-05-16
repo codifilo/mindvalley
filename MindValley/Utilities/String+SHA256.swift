@@ -1,5 +1,5 @@
 //
-//  APICall.swift
+//  String+SHA256.swift
 //  MindValley
 //
 //  Copyright © 2020 Agustín Prats.
@@ -24,47 +24,32 @@
 
 import Foundation
 
-protocol APICall {
-    var path: String { get }
-    var method: String { get }
-    var headers: [String: String]? { get }
-    func body() throws -> Data?
-}
+extension String {
 
-enum APIError: Swift.Error {
-    case invalidURL
-    case httpCode(HTTPCode)
-    case unexpectedResponse
-}
-
-extension APIError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL: return "Invalid URL"
-        case let .httpCode(code): return "Unexpected HTTP code: \(code)"
-        case .unexpectedResponse: return "Unexpected response from the server"
+    func sha256() -> String {
+        if let stringData = self.data(using: String.Encoding.utf8) {
+            return hexStringFromData(input: digest(input: stringData as NSData))
         }
+        return ""
     }
-}
 
-extension APICall {
-    func absoluteUrl(from baseURL: String) -> String { baseURL + path }
-    
-    func urlRequest(baseURL: String) throws -> URLRequest {
-        guard let url = URL(string: absoluteUrl(from: baseURL)) else {
-            throw APIError.invalidURL
+    private func digest(input : NSData) -> NSData {
+        let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
+        var hash = [UInt8](repeating: 0, count: digestLength)
+        CC_SHA256(input.bytes, UInt32(input.length), &hash)
+        return NSData(bytes: hash, length: digestLength)
+    }
+
+    private func hexStringFromData(input: NSData) -> String {
+        var bytes = [UInt8](repeating: 0, count: input.length)
+        input.getBytes(&bytes, length: input.length)
+
+        var hexString = ""
+        for byte in bytes {
+            hexString += String(format:"%02x", UInt8(byte))
         }
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-        request.allHTTPHeaderFields = headers
-        request.httpBody = try body()
-        return request
+
+        return hexString
     }
-}
 
-typealias HTTPCode = Int
-typealias HTTPCodes = Range<HTTPCode>
-
-extension HTTPCodes {
-    static let success = 200 ..< 300
 }

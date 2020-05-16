@@ -29,36 +29,87 @@ protocol WebRepository {
     var session: URLSession { get }
     var baseURL: String { get }
     var bgQueue: DispatchQueue { get }
+    var fileCache: FileCache { get }
 }
 
 extension WebRepository {
-    func call<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success) -> AnyPublisher<Value, Error>
-        where Value: Decodable {
+    func call<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success)
+        -> AnyPublisher<Value, Error> where Value: Decodable {
         do {
             let request = try endpoint.urlRequest(baseURL: baseURL)
-            return session
-                .dataTaskPublisher(for: request)
-                .requestJSON(httpCodes: httpCodes)
-                .ensureTimeSpan(0.5) // Hold the response if it arrives too quickly
+            return receiveAndParse(request, with: httpCodes)
         } catch let error {
             return Fail<Value, Error>(error: error).eraseToAnyPublisher()
         }
+    }
+    
+    func cachedCall<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success)
+        -> AnyPublisher<Value?, Error> where Value: Decodable {
+            
+            Publishers.CombineLatest(
+                cached(key: endpoint.absoluteUrl(from: baseURL).sha256()),
+                Publishers.Merge(Just(nil).mapError({ $0 as Error }),
+                                 call(endpoint: endpoint, httpCodes: httpCodes))
+            ).map { cached, value in value ?? cached }
+            .eraseToAnyPublisher()
+    }
+    
+    private func receiveAndParse<Value>(_ request: URLRequest,
+                                        with httpCodes: HTTPCodes = .success)
+        -> AnyPublisher<Value, Error> where Value: Decodable {
+            
+            session
+                .dataTaskPublisher(for: request)
+                .requestJSON(httpCodes: httpCodes, cache: fileCache)
+    }
+    
+    private func cached<Value>(key: String)
+        -> AnyPublisher<Value?, Error> where Value: Decodable {
+            
+        Future<Data?, Error> { completion in
+            DispatchQueue.global().async {
+                do {
+                    let data = try self.fileCache.read(key: key)
+                    completion(.success(data))
+                } catch {
+                    completion(.success(nil))
+                }
+            }
+        }.flatMap { data -> AnyPublisher<Value?, Error> in
+            if let data = data {
+                return Just(data)
+                    .decode(type: Value.self, decoder: JSONDecoder())
+                    .map { value -> Value? in .some(value) }
+                    .mapError { $0 as Error }
+                    .eraseToAnyPublisher()
+            } else {
+                return Just(nil)
+                    .mapError { $0 as Error }
+                    .eraseToAnyPublisher()
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 
 // MARK: - Helpers
 
 private extension Publisher where Output == URLSession.DataTaskPublisher.Output {
-    func requestJSON<Value>(httpCodes: HTTPCodes) -> AnyPublisher<Value, Error> where Value: Decodable {
-        return tryMap {
+    func requestJSON<Value>(httpCodes: HTTPCodes, cache: FileCache? = nil)
+        -> AnyPublisher<Value, Error> where Value: Decodable {
+            
+        return tryMap { data, response in
                 assert(!Thread.isMainThread)
-                guard let code = ($0.1 as? HTTPURLResponse)?.statusCode else {
+                guard let httpResponse = response as? HTTPURLResponse else {
                     throw APIError.unexpectedResponse
                 }
-                guard httpCodes.contains(code) else {
-                    throw APIError.httpCode(code)
+                guard httpCodes.contains(httpResponse.statusCode) else {
+                    throw APIError.httpCode(httpResponse.statusCode)
                 }
-                return $0.0
+                if let cache = cache, let url = httpResponse.url?.absoluteString {
+                    cache.save(data: data, key: url.sha256())
+                }
+                return data
             }
             .extractUnderlyingError()
             .decode(type: Value.self, decoder: JSONDecoder())

@@ -58,7 +58,8 @@ struct RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                self.appState[\.userData.newEpisodes] = .loaded($0.data.media)
+                guard let value = $0 else { return }
+                self.appState[\.userData.newEpisodes] = .loaded(value.data.media)
         }).store(in: cancelBag)
     }
     
@@ -72,7 +73,8 @@ struct RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                self.appState[\.userData.channels] = .loaded($0.data.channels)
+                guard let value = $0 else { return }
+                self.appState[\.userData.channels] = .loaded(value.data.channels)
         }).store(in: cancelBag)
     }
     
@@ -86,7 +88,8 @@ struct RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                self.appState[\.userData.categories] = .loaded($0.data.categories)
+                guard let value = $0 else { return }
+                self.appState[\.userData.categories] = .loaded(value.data.categories)
         }).store(in: cancelBag)
     }
 }
