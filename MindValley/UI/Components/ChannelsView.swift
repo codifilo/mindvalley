@@ -79,7 +79,7 @@ struct ChannelsView: View {
                     DividerView().padding(.top, 16)
                 }
             }
-        }
+        }.padding(.bottom, 20)
     }
     
     private func header(for channel: Channel) -> some View {
