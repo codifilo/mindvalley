@@ -69,6 +69,7 @@ struct NewEpisodesView: View {
         MediaListView(mediaList: mediaList,
                       width: width,
                       height: height)
+            .animation(.spring())
     }
 }
 

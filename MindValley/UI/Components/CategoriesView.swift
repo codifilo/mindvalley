@@ -74,7 +74,8 @@ struct CategoriesView: View {
                             .padding(.leading, 5) }
                 }.padding(.vertical, 8)
             }
-        }.onAppear() {
+        }.animation(.spring())
+        .onAppear() {
             UITableView.appearance().backgroundColor = .clear
             UITableView.appearance().separatorStyle = .none
             UITableViewCell.appearance().backgroundColor = .clear

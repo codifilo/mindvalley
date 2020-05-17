@@ -44,7 +44,6 @@ struct CoverView: SwiftUI.View {
         let main = url.map({ AnyView(KFImage($0,
                        options: [.processor(processor),
                                  .scaleFactor(UIScreen.main.scale),
-                                 .transition(.fade(1)),
                                  .cacheOriginalImage])
             .placeholder({ placeHolder })) }) ?? placeHolder
         

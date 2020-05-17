@@ -80,6 +80,7 @@ struct ChannelsView: View {
                 }
             }
         }.padding(.bottom, 20)
+            .animation(.spring())
     }
     
     private func header(for channel: Channel) -> some View {
