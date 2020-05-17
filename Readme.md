@@ -1,10 +1,10 @@
 # MindValley Channels
-This project implements the MindValley app channels view which has three sections. New Episodes, Channels and Categories. All the data is loaded asynchronously from a JSON API calls and efficiently cached for offline use.
+This project implements the MindValley app channels view which has three sections. New Episodes, Channels and Categories. All the data is loaded asynchronously from JSON API calls and it's efficiently cached for offline use.
 
 
 ## Architecture
 
-The general idea is that the application has a one single source of truth as an immutable state and the view implemented using SwiftUI and subscribes to update events for the app state using the Apple Combine library. The business logic is implemented in the interactors and the data access layer is implemented in the repositories. 
+The general idea is that the application has a one single source of truth as an immutable state and the view is implemented using SwiftUI and subscribes to update events for the app state using the Apple Combine library. The business logic is implemented in the interactors and the data access layer is implemented in the repositories. 
 
 ![alt text](https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001_d.png?raw=true "Architecture Diagram")
 
