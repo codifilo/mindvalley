@@ -48,9 +48,11 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let data = NewEpisodesData.mockedData
         try mock(.newEpisodes, result: .success(data))
         let exp = XCTestExpectation(description: "Completion")
-        sut.loadNewEpisodes().sinkToResult { result in
-            result.assertSuccess(value: data)
-            exp.fulfill()
+        sut.loadNewEpisodes()
+            .discardErrors
+            .sink {
+                guard $0 != nil else { return }
+                exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
     }
@@ -59,9 +61,11 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let data = ChannelsData.mockedData
         try mock(.channels, result: .success(data))
         let exp = XCTestExpectation(description: "Completion")
-        sut.loadChannels().sinkToResult { result in
-            result.assertSuccess(value: data)
-            exp.fulfill()
+        sut.loadChannels()
+            .discardErrors
+            .sink {
+                guard $0 != nil else { return }
+                exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
     }
@@ -70,9 +74,11 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let data = CategoriesData.mockedData
         try mock(.categories, result: .success(data))
         let exp = XCTestExpectation(description: "Completion")
-        sut.loadCategories().sinkToResult { result in
-            result.assertSuccess(value: data)
-            exp.fulfill()
+        sut.loadCategories()
+            .discardErrors
+            .sink {
+                guard $0 != nil else { return }
+                exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
     }
