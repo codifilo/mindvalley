@@ -30,6 +30,7 @@ class TestWebRepository: WebRepository {
     let session: URLSession = .mockedResponsesOnly
     let baseURL = "https://pastebin.com"
     let bgQueue = DispatchQueue(label: "test")
+    var fileCache = FileCache(cacheName: "Test")
 }
 
 // MARK: - ChannelsWebRepository
@@ -43,21 +44,21 @@ final class MockedChannelsWebRepository: TestWebRepository, Mock, ChannelsWebRep
     }
     var actions = MockActions<Action>(expected: [])
     
-    var newEpisodesResponse: Result<NewEpisodesData, Error> = .failure(MockError.valueNotSet)
-    var channelsResponse: Result<ChannelsData, Error> = .failure(MockError.valueNotSet)
-    var categoriesResponse: Result<CategoriesData, Error> = .failure(MockError.valueNotSet)
+    var newEpisodesResponse: Result<NewEpisodesData?, Error> = .failure(MockError.valueNotSet)
+    var channelsResponse: Result<ChannelsData?, Error> = .failure(MockError.valueNotSet)
+    var categoriesResponse: Result<CategoriesData?, Error> = .failure(MockError.valueNotSet)
     
-    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData, Error> {
+    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData?, Error> {
         register(.loadNewEpisodes)
         return newEpisodesResponse.publish()
     }
     
-    func loadChannels() -> AnyPublisher<ChannelsData, Error> {
+    func loadChannels() -> AnyPublisher<ChannelsData?, Error> {
         register(.loadChannels)
         return channelsResponse.publish()
     }
     
-    func loadCategories() -> AnyPublisher<CategoriesData, Error> {
+    func loadCategories() -> AnyPublisher<CategoriesData?, Error> {
         register(.loadCategories)
         return categoriesResponse.publish()
     }

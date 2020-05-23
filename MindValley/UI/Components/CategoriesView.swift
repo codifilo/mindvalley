@@ -120,8 +120,8 @@ private extension CategoriesView {
                     ? cats[$0.advanced(by: 1)]
                     : nil)
             }.map { CategoriesCellData(first: $0, second: $1) }
-        }
     }
+}
 
 extension Category: Identifiable {
     var id: Int {
