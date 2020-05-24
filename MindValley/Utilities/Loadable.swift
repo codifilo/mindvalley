@@ -30,7 +30,7 @@ typealias LoadableSubject<Value> = Binding<Loadable<Value>>
 enum Loadable<T> {
 
     case notRequested
-    case isLoading(last: T?, cancelBag: CancelBag)
+    case isLoading(last: T?, cancelBag: CancelBag?)
     case loaded(T)
     case failed(Error)
 
@@ -51,14 +51,14 @@ enum Loadable<T> {
 
 extension Loadable {
     
-    mutating func setIsLoading(cancelBag: CancelBag) {
+    mutating func setIsLoading(cancelBag: CancelBag? = nil) {
         self = .isLoading(last: value, cancelBag: cancelBag)
     }
     
     mutating func cancelLoading() {
         switch self {
         case let .isLoading(last, cancelBag):
-            cancelBag.cancel()
+            cancelBag?.cancel()
             if let last = last {
                 self = .loaded(last)
             } else {

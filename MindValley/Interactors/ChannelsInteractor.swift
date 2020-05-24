@@ -32,9 +32,10 @@ protocol ChannelsInteractor {
     func loadCategories()
 }
 
-struct RealChannelsInteractor: ChannelsInteractor {
+final class RealChannelsInteractor: ChannelsInteractor {
     let appState: Store<AppState>
     let webRepository: ChannelsWebRepository
+    private var cancellables = Set<AnyCancellable>()
     
     init(appState: Store<AppState>, webRepository: ChannelsWebRepository) {
         self.appState = appState
@@ -49,8 +50,7 @@ struct RealChannelsInteractor: ChannelsInteractor {
     }
     
     func loadNewEpisodes() {
-        let cancelBag = CancelBag()
-        appState[\.userData.newEpisodes].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.newEpisodes].setIsLoading()
         webRepository.loadNewEpisodes().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
@@ -61,12 +61,11 @@ struct RealChannelsInteractor: ChannelsInteractor {
                 guard let value = $0,
                     self.appState[\.userData.newEpisodes] != .loaded(value.data.media) else { return }
                 self.appState[\.userData.newEpisodes] = .loaded(value.data.media)
-        }).store(in: cancelBag)
+        }).store(in: &cancellables)
     }
     
     func loadChannels() {
-        let cancelBag = CancelBag()
-        appState[\.userData.channels].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.channels].setIsLoading()
         webRepository.loadChannels().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
@@ -78,12 +77,11 @@ struct RealChannelsInteractor: ChannelsInteractor {
                 self.appState[\.userData.channels] != .loaded(value.data.channels) else { return }
                 
                 self.appState[\.userData.channels] = .loaded(value.data.channels)
-        }).store(in: cancelBag)
+        }).store(in: &cancellables)
     }
     
     func loadCategories() {
-        let cancelBag = CancelBag()
-        appState[\.userData.categories].setIsLoading(cancelBag: cancelBag)
+        appState[\.userData.categories].setIsLoading()
         webRepository.loadCategories().sink(
             receiveCompletion: {
                 if case .failure(let error) = $0 {
@@ -93,7 +91,7 @@ struct RealChannelsInteractor: ChannelsInteractor {
             receiveValue: {
                 guard let value = $0, self.appState[\.userData.categories] != .loaded(value.data.categories) else { return }
                 self.appState[\.userData.categories] = .loaded(value.data.categories)
-        }).store(in: cancelBag)
+        }).store(in: &cancellables)
     }
 }
 
