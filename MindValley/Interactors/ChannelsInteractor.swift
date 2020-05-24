@@ -58,9 +58,7 @@ final class RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                guard let value = $0,
-                    self.appState[\.userData.newEpisodes] != .loaded(value.data.media) else { return }
-                self.appState[\.userData.newEpisodes] = .loaded(value.data.media)
+                self.appState[\.userData.newEpisodes] = .loaded($0.data.media)
         }).store(in: &cancellables)
     }
     
@@ -73,10 +71,7 @@ final class RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                guard let value = $0,
-                self.appState[\.userData.channels] != .loaded(value.data.channels) else { return }
-                
-                self.appState[\.userData.channels] = .loaded(value.data.channels)
+                self.appState[\.userData.channels] = .loaded($0.data.channels)
         }).store(in: &cancellables)
     }
     
@@ -89,8 +84,7 @@ final class RealChannelsInteractor: ChannelsInteractor {
                 }
         },
             receiveValue: {
-                guard let value = $0, self.appState[\.userData.categories] != .loaded(value.data.categories) else { return }
-                self.appState[\.userData.categories] = .loaded(value.data.categories)
+                self.appState[\.userData.categories] = .loaded($0.data.categories)
         }).store(in: &cancellables)
     }
 }

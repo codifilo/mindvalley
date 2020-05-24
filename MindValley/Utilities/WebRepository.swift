@@ -44,13 +44,15 @@ extension WebRepository {
     }
     
     func cachedCall<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success)
-        -> AnyPublisher<Value?, Error> where Value: Decodable {
+        -> AnyPublisher<Value, Error> where Value: Decodable {
             
             Publishers.CombineLatest(
                 cached(key: endpoint.absoluteUrl(from: baseURL).sha256()),
                 Publishers.Merge(Just(nil).mapError({ $0 as Error }),
                                  call(endpoint: endpoint, httpCodes: httpCodes))
             ).map { cached, value in value ?? cached }
+            .filter { $0 != nil }
+            .map { $0! }
             .eraseToAnyPublisher()
     }
     

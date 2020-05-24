@@ -26,9 +26,9 @@ import Foundation
 import Combine
 
 protocol ChannelsWebRepository: WebRepository {
-    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData?, Error>
-    func loadChannels() -> AnyPublisher<ChannelsData?, Error>
-    func loadCategories() -> AnyPublisher<CategoriesData?, Error>
+    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData, Error>
+    func loadChannels() -> AnyPublisher<ChannelsData, Error>
+    func loadCategories() -> AnyPublisher<CategoriesData, Error>
 }
 
 struct RealChannelsWebRepository: ChannelsWebRepository {
@@ -42,15 +42,15 @@ struct RealChannelsWebRepository: ChannelsWebRepository {
         self.baseURL = baseURL
     }
     
-    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData?, Error> {
+    func loadNewEpisodes() -> AnyPublisher<NewEpisodesData, Error> {
         cachedCall(endpoint: API.newEpisodes)
     }
     
-    func loadChannels() -> AnyPublisher<ChannelsData?, Error> {
+    func loadChannels() -> AnyPublisher<ChannelsData, Error> {
         cachedCall(endpoint: API.channels)
     }
     
-    func loadCategories() -> AnyPublisher<CategoriesData?, Error> {
+    func loadCategories() -> AnyPublisher<CategoriesData, Error> {
         cachedCall(endpoint: API.categories)
     }
 }

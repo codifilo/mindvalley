@@ -50,8 +50,7 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let exp = XCTestExpectation(description: "Completion")
         sut.loadNewEpisodes()
             .discardErrors
-            .sink {
-                guard $0 != nil else { return }
+            .sink { _ in
                 exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
@@ -63,8 +62,7 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let exp = XCTestExpectation(description: "Completion")
         sut.loadChannels()
             .discardErrors
-            .sink {
-                guard $0 != nil else { return }
+            .sink { _ in
                 exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
@@ -76,8 +74,7 @@ final class ChannelsWebRepositoryTests: XCTestCase {
         let exp = XCTestExpectation(description: "Completion")
         sut.loadCategories()
             .discardErrors
-            .sink {
-                guard $0 != nil else { return }
+            .sink { _ in
                 exp.fulfill()
         }.store(in: &subscriptions)
         wait(for: [exp], timeout: 2)
